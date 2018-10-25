@@ -8,7 +8,7 @@ Run `npm install graphsync-browser-ide
 Run `npm install`
 
 ## Step 3
-Change configuraiton `src/aws-config.js``
+Change configuraiton `src/aws-config.js`
 
 ## Step 4
 Run `npm start`. If you are using Cognito, sign-in with your user account.
