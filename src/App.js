@@ -1,28 +1,42 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import GraphiQL from 'graphiql';
+import fetch from 'isomorphic-fetch';
+import './graphiql.css'
+import config from './aws-config'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+import { withAuthenticator } from 'aws-amplify-react'
+import { Auth } from 'aws-amplify'
+
+const graphQLFetcherCognito = async (graphQLParams) => {
+  const session = await Auth.currentSession()
+  const token = session.idToken.jwtToken
+  return fetch(config.endpoint, {
+    method: 'post',
+    headers: {
+      Authorization: token
+    },
+    body: JSON.stringify(graphQLParams)
+  }).then(res => res.json())
 }
 
-export default App;
+const graphQLFetcherApiKey = (graphQLParams) => {
+  return fetch(config.endpoint, {
+    method: 'post',
+    headers: {
+      'x-api-key': config.apiKey
+    },
+    body: JSON.stringify(graphQLParams)
+  }).then(res => res.json())
+}
+
+const App = () => {
+  if (config.authType === 'COGNITO') {
+    console.log('this is from cognito')
+    return <GraphiQL fetcher={graphQLFetcherCognito} />
+  } else {
+    return <GraphiQL fetcher={graphQLFetcherApiKey} />
+  }
+
+}
+
+export default withAuthenticator(App)
