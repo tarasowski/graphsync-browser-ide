@@ -2,7 +2,7 @@
 
 
 ## Step 1
-Run `npm install graphsync-browser-ide
+Run `npm install graphsync-browser-ide --save-dev`
 
 ## Step 2
 Run `npm install`
@@ -11,7 +11,7 @@ Run `npm install`
 Change configuraiton `src/aws-config.js`
 
 ## Step 4
-Run `npm start`. If you are using Cognito, sign-in with your user account.
+Run `npm explore graphsync-browser-ide npm start`. If you are using Cognito, sign-in with your user account.
 
 ## Step 5
 Now you can run your GraphQL queries.
