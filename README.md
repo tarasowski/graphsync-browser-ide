@@ -1,7 +1,7 @@
 # An in-browser IDE for exploring AppSync Endpoints
 
 ## Step 1
-Run `npm install graphsync-browser-ide --save-dev`
+Run `git clone https://github.com/tarasowski/graphsync-browser-ide.git`
 
 ## Step 2
 Run `npm install`
